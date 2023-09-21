@@ -1,0 +1,11 @@
+﻿@model ICollection<TodoList>
+
+    <ul>
+@foreach(TodoList l in Model)
+{
+    // TodoList/Details?todoList
+    <li>
+        @l.Title | <a asp-action="Details" asp-route-listId="@l.Id"></a>
+    </li>
+}
+</ul>

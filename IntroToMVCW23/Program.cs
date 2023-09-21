@@ -1,4 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using IntroToMVCW23.Data;
+using Microsoft.AspNetCore.Identity;
+using IntroToMVCW23.Areas.Identity.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
+string connectionString = "IntroIdentityDbContextConnection";
+
+builder.Services.AddDbContext<IntroIdentityDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString(connectionString) ?? throw new InvalidOperationException("Connection string not found.")));
+
+// userManager, signInManager, roleManager
+builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddEntityFrameworkStores<IntroIdentityDbContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -17,6 +32,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();;
 
 app.UseAuthorization();
 

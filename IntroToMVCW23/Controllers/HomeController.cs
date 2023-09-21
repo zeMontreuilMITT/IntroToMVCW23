@@ -18,6 +18,11 @@ namespace IntroToMVCW23.Controllers
             return View("Privacy");
         }
 
+        public IActionResult Index(int sort)
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
